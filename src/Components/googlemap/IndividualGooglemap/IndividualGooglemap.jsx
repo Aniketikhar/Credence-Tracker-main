@@ -2387,20 +2387,74 @@ function IndividualGooglemap({ data, setIndividualMap, individualDataObj }) {
 
   // Logic for stop points
   useEffect(() => {
+    let resetTime = null;
+    let count = 0;
+    let latitude;
+    let longitude;
+
     if (playbackData) {
+      console.log("this is for stop data : ", playbackData);
       const stopPoints = playbackData.reduce((acc, row, index) => {
-        if (
-          row.attributes?.ignition === true &&
-          playbackData[index + 1] &&
-          playbackData[index + 1].attributes?.ignition === false
+        if (index == 0 && resetTime == null) {
+          resetTime = new Date(row.deviceTime);
+          count += 1;
+          latitude = row.latitude;
+          longitude = row.longitude;
+          acc.push({
+            startTime: resetTime,
+            latitude: row.latitude,
+            longitude: row.longitude,
+            index: count,
+          });
+
+          resetTime = null;
+        } else if (
+          index !== playbackData.length - 1 &&
+          row.attributes?.ignition === false &&
+          resetTime == null
         ) {
+          resetTime = new Date(row.deviceTime);
+          count += 1;
+          latitude = row.latitude;
+          longitude = row.longitude;
+        } else if (row.attributes.ignition && resetTime !== null) {
+          let ignitionOnTime = new Date(row.deviceTime);
+          let duration = ignitionOnTime - resetTime;
+
+          let Hrs = Math.floor(duration / (1000 * 60 * 60));
+          let Mins = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+          let Sec = Math.floor((duration % (1000 * 60)) / 1000);
+
           acc.push({
             latitude: row.latitude,
             longitude: row.longitude,
+            duration: `${Hrs}:${Mins}:${Sec}`,
+            index: count,
+            arrivalTime: resetTime,
+            departureTime: ignitionOnTime,
           });
+
+          resetTime = null;
+        } else if (index == playbackData.length - 1 && resetTime == null) {
+          resetTime = new Date(row.deviceTime);
+          count += 1;
+          latitude = row.latitude;
+          longitude = row.longitude;
+          acc.push({
+            endTime: resetTime,
+            latitude: row.latitude,
+            longitude: row.longitude,
+            index: count,
+          });
+
+          resetTime = null;
         }
         return acc;
       }, []);
+
+      
+
+      console.log("this is stop poinst : ", stopPoints);
       setStoppedPositions(stopPoints);
     }
   }, [playbackData]);

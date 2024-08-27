@@ -60,6 +60,7 @@ import { Driver } from "./Components/VariousTables/Users/Driver/Driver.jsx";
 import { Parent } from "./Components/VariousTables/Users/Parent/Parent.jsx";
 import { Supervisor } from "./Components/VariousTables/Users/Supervisor/Supervisor.jsx";
 import SchoolMaster from "./Components/VariousTables/Users/SchoolMaster/SchoolMaster.jsx";
+import BranchMaster from "./Components/VariousTables/Users/BranchMaster/BranchMaster.jsx";
 // import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
 import axios from "axios";
 import { ApprovedRequest } from "./Components/VariousTables/School/ApprovedRequest/ApprovedRequest.jsx";
@@ -292,9 +293,9 @@ function App() {
     } else if (item === "Driver") {
       setComponent("Driver");
     } else if (item === "SchoolMaster") {
-      if (role == 1) {
-        setComponent("SchoolMaster");
-      }
+      setComponent("SchoolMaster");
+    } else if (item === "BranchMaster") {
+      setComponent("BranchMaster");
     } else if (item === "Parent") {
       setComponent("Parent");
     } else if (item === "Supervisor") {
@@ -455,7 +456,8 @@ function App() {
           {component === "Driver" && <Driver data={mergedData} />}
           {component === "Parent" && <Parent data={mergedData} />}
           {component === "Supervisor" && <Supervisor data={mergedData} />}
-          {role === 1 && component === "SchoolMaster" && <SchoolMaster data={mergedData} />}
+          {component === "SchoolMaster" && <SchoolMaster data={mergedData} />}
+          {component === "BranchMaster" && <BranchMaster data={mergedData} />}
           {component === "ApprovedRequest" && (
             <ApprovedRequest data={mergedData} />
           )}
@@ -536,6 +538,7 @@ function App() {
             "Parent",
             "Supervisor",
             "SchoolMaster",
+            "BranchMaster",
             "ApprovedRequest",
             "DeniedRequest",
             "PickupAndDrop",

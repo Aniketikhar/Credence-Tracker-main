@@ -76,7 +76,7 @@ const pages = [
   {
     title: "Users",
     icon: <DriveEtaIcon />,
-    arr: ["SchoolMaster", "Driver", "Parent", "Supervisor"],
+    arr: ["SchoolMaster", "BranchMaster", "Driver", "Parent", "Supervisor"],
   },
   {
     title: "Geofencing",
@@ -137,16 +137,25 @@ export const Navbar = (props) => {
     }
   }, []);
 
- 
-
   const handleNavClick = (arr, title) => {
-    if (role !== 1) {
-      
-      arr = arr.filter(item => item !== 'SchoolMaster');
+    if (role === 1) {
+      const updatedArr = arr.filter((item) => item !== "BranchMaster");
+      props.propFunc(updatedArr);
+      props.propBool(true);
+      setSelectedPage(title);
+    } else if (role === 2) {
+      const updatedArr = arr.filter((item) => item !== "SchoolMaster");
+      props.propFunc(updatedArr);
+      props.propBool(true);
+      setSelectedPage(title);
+    } else if (role === 3) {
+      const updatedArr = arr.filter(
+        (item) => item !== "SchoolMaster" && item !== "BranchMaster"
+      );
+      props.propFunc(updatedArr);
+      props.propBool(true);
+      setSelectedPage(title);
     }
-    props.propFunc(arr);
-    props.propBool(true); 
-    setSelectedPage(title); 
   };
 
   const handleRedAlert = () => {

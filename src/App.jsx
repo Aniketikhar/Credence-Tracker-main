@@ -3,7 +3,7 @@ import { Navbar } from "./Components/Navbar/Navbar.jsx";
 import { Sidebar } from "./Components/Sidebar/Sidebar.jsx";
 import { Tablee } from "./Components/Table/Table.jsx";
 import { CustomTabs } from "./Components/Tabs/Tabs.jsx";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import { Cards } from './Components/Cards/Cards.jsx';
 import { Googlemap } from "./Components/googlemap/googlemap.jsx";
 import { BasicSpeedDial } from "./Components/basicSpeedDial/basicSpeedDial.jsx";
@@ -11,14 +11,14 @@ import { DistanceReport } from "./Components/VariousTables/Reports/DistanceRepor
 import { Assets } from "./Components/VariousTables/Master/Assets/Assets.jsx";
 // import { School } from "./Components/VariousTables/Master/Assets/School.jsx";
 import { AssetsCategory } from "./Components/VariousTables/Master/AssetsCategory/AssetsCategory.jsx";
-import {Leave} from "./Components/VariousTables/School/Leave/Leave.jsx"
-import {Status} from "./Components/VariousTables/School/Status/Status.jsx"
-import {StudentDetail} from "./Components/VariousTables/School/StudentDetail/StudentDetail.jsx"
-import {Present} from "./Components/VariousTables/School/Present/Present.jsx"
-import {User} from "./Components/VariousTables/School/User/User.jsx"
+import { Leave } from "./Components/VariousTables/School/Leave/Leave.jsx";
+import { Status } from "./Components/VariousTables/School/Status/Status.jsx";
+import { StudentDetail } from "./Components/VariousTables/School/StudentDetail/StudentDetail.jsx";
+import { Present } from "./Components/VariousTables/School/Present/Present.jsx";
+import { User } from "./Components/VariousTables/School/User/User.jsx";
 import { DriverAssignmentReport } from "./Components/VariousTables/Reports/DriverAssignmentReport/DriverAssignmentReport.jsx";
 import { AnalyticsDashboard } from "./Components/VariousTables/Home/Analytics.js";
-import {School}  from "./Components/VariousTables/Master/School/School.jsx";
+import { School } from "./Components/VariousTables/Master/School/School.jsx";
 import { AssetsType } from "./Components/VariousTables/Master/AssetsType/AssetsType.jsx";
 import { AssetsCommand } from "./Components/VariousTables/Master/AssetsCommand/AssetsCommand.jsx";
 import { AssetsClass } from "./Components/VariousTables/Master/AssetsClass/AssetsClass.jsx";
@@ -31,7 +31,7 @@ import { EditRoutes } from "./Components/VariousTables/Geofencing/EditRoutes/Edi
 import { CreateArea } from "./Components/VariousTables/Geofencing/CreateArea.jsx";
 import { AssetsDivision } from "./Components/VariousTables/Master/AssetsDivision/AssetsDivision.jsx";
 import { AssetsOwner } from "./Components/VariousTables/Master/AssetsOwner/AssetsOwner.jsx";
-import {Absent} from "./Components/VariousTables/School/Absent/Absent.jsx"
+import { Absent } from "./Components/VariousTables/School/Absent/Absent.jsx";
 import { AddressBook } from "./Components/VariousTables/Master/AddressBook/AddressBook.jsx";
 import { AddressBookGroup } from "./Components/VariousTables/Master/AddressBookGroup/AddressBookGroup.jsx";
 import { AssetsURL } from "./Components/VariousTables/Master/AssetsURL/AssetsURL.jsx";
@@ -56,8 +56,8 @@ import { UsersAssetsMapping } from "./Components/VariousTables/Master/UsersAsset
 import { EditAreas } from "./Components/VariousTables/Geofencing/EditAreas/EditArea.js";
 import { EditZones } from "./Components/VariousTables/Geofencing/EditZones/EditZones.jsx";
 import { Trips } from "./Components/VariousTables/Geofencing/Trips/Trips.jsx";
-import {Driver} from "./Components/VariousTables/Users/Driver/Driver.jsx";
-import {Parent} from "./Components/VariousTables/Users/Parent/Parent.jsx";
+import { Driver } from "./Components/VariousTables/Users/Driver/Driver.jsx";
+import { Parent } from "./Components/VariousTables/Users/Parent/Parent.jsx";
 import { Supervisor } from "./Components/VariousTables/Users/Supervisor/Supervisor.jsx";
 import SchoolMaster from "./Components/VariousTables/Users/SchoolMaster/SchoolMaster.jsx";
 // import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
@@ -69,20 +69,21 @@ import { Button } from "@mui/material";
 import { VehicleDetails } from "./Components/VehicleDetails.jsx";
 import { PickupAndDrop } from "./Components/VariousTables/School/PickAndDrop/PickupAndDrop.jsx";
 import { Server } from "./Components/VariousTables/Master/Server/Server.jsx";
-import {Device} from "./Components/VariousTables/Master/Device/Device.jsx"
+import { Device } from "./Components/VariousTables/Master/Device/Device.jsx";
 import { Groups } from "./Components/VariousTables/Master/Groups/Groups.jsx";
 import { Geofence } from "./Components/VariousTables/School/Geofence/Geofence.jsx";
 import { Preferences } from "./Components/VariousTables/MASTERUPDATED/Preferences/Preferences.jsx";
 import { Notifications } from "./Components/VariousTables/MASTERUPDATED/Notifications/Notifications.jsx";
-import {Devices} from "./Components/VariousTables/MASTERUPDATED/Device/Devices.jsx"
+import { Devices } from "./Components/VariousTables/MASTERUPDATED/Device/Devices.jsx";
 import { Geofences } from "./Components/VariousTables/MASTERUPDATED/Geofences/Geofences.jsx";
-import { Drivers } from "./Components/VariousTables/MASTERUPDATED/Drivers/Drivers.jsx"
+import { Drivers } from "./Components/VariousTables/MASTERUPDATED/Drivers/Drivers.jsx";
 import { ComputedAttributes } from "./Components/VariousTables/MASTERUPDATED/ComputedAttributes/ComputedAttributes.jsx";
 import { Maintenance } from "./Components/VariousTables/MASTERUPDATED/Maintenance/Maintenance.jsx";
 import { SavedCommands } from "./Components/VariousTables/MASTERUPDATED/Saved Commands/SavedCommands.jsx";
 import { Userrr } from "./Components/VariousTables/MASTERUPDATED/Userrr/Userrr.jsx";
 import { Combined } from "./Components/VariousTables/ReportsUpdated/Combined/Combined.jsx";
 import { Route } from "./Components/VariousTables/ReportsUpdated/Route/Route.jsx";
+import { TotalResponsesContext } from "./TotalResponsesContext.jsx";
 // import { ComputedAttributes } from "./Components/VariousTables/MASTERUPDATED/ComputedAttributes/ComputedAttributes.jsx";
 //import { TotalResponsesProvider } from './TotalResponsesContext';
 function App() {
@@ -93,6 +94,7 @@ function App() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [component, setComponent] = useState("");
   const [apiData, setApiData] = useState([]);
+  const { role } = useContext(TotalResponsesContext);
 
   // const handleClick = async () => {
   //   try {
@@ -120,7 +122,7 @@ function App() {
         const password = "123456"; // Replace with your actual password
         const token = btoa(`${username}:${password}`); // Base64 encode the username and password
         const response1 = await axios.get(
-            "https://rocketsalestracker.com/api/devices",
+          "https://rocketsalestracker.com/api/devices",
           {
             headers: {
               Authorization: `Basic ${token}`, // Replace with your actual token
@@ -141,7 +143,7 @@ function App() {
         const token = btoa(`${username}:${password}`); // Base64 encode the username and password
 
         const response2 = await axios.get(
-             "https://rocketsalestracker.com/api/positions",
+          "https://rocketsalestracker.com/api/positions",
           {
             headers: {
               Authorization: `Basic ${token}`,
@@ -197,9 +199,9 @@ function App() {
       setComponent("Assets");
     } else if (item === "Assets Category") {
       setComponent("AssetsCategory");
-    }else if (item === "Leave") {
+    } else if (item === "Leave") {
       setComponent("Leave");
-    }else if (item === "Status") {
+    } else if (item === "Status") {
       setComponent("Status");
     } else if (item === "Driver Assignment Report") {
       setComponent("DriverAssignmentReport");
@@ -231,11 +233,11 @@ function App() {
       setComponent("AssetsOwner");
     } else if (item === "Address Book") {
       setComponent("AddressBook");
-    }else if (item === "Absent") {
+    } else if (item === "Absent") {
       setComponent("Absent");
-    }else if (item === "Student Detail") {
+    } else if (item === "Student Detail") {
       setComponent("StudentDetail");
-    }else if (item === "Address Book Group") {
+    } else if (item === "Address Book Group") {
       setComponent("AddressBookGroup");
     } else if (item === "Assets URL") {
       setComponent("AssetsURL");
@@ -281,59 +283,59 @@ function App() {
       setComponent("EditZones");
     } else if (item === "Trips") {
       setComponent("Trips");
-    }else if (item === "School") {
+    } else if (item === "School") {
       setComponent("School");
-    }else if (item === "User") {
+    } else if (item === "User") {
       setComponent("User");
-    }else if (item === "Present") {
+    } else if (item === "Present") {
       setComponent("Present");
-    }else if (item === "Driver") {
+    } else if (item === "Driver") {
       setComponent("Driver");
-    }else if (item === "SchoolMaster") {
-      setComponent("SchoolMaster");
-    }else if (item === "Parent") {
+    } else if (item === "SchoolMaster") {
+      if (role == 1) {
+        setComponent("SchoolMaster");
+      }
+    } else if (item === "Parent") {
       setComponent("Parent");
-    }else if (item === "Supervisor") {
+    } else if (item === "Supervisor") {
       setComponent("Supervisor");
-    }else if (item === "Approved Request") {
+    } else if (item === "Approved Request") {
       setComponent("ApprovedRequest");
-    }else if (item === "Denied Request") {
+    } else if (item === "Denied Request") {
       setComponent("DeniedRequest");
-    }else if (item === "Pickup And Drop List") {
+    } else if (item === "Pickup And Drop List") {
       setComponent("PickupAndDrop");
-    }else if (item === "Server") {
+    } else if (item === "Server") {
       setComponent("Server");
-    }else if (item === "Device") {
+    } else if (item === "Device") {
       setComponent("Device");
-    }else if (item === "Groups") {
+    } else if (item === "Groups") {
       setComponent("Groups");
-    }else if (item === "Geofence") {
+    } else if (item === "Geofence") {
       setComponent("Geofence");
-    }else if (item === "Preferences") {
+    } else if (item === "Preferences") {
       setComponent("Preferences");
-    }else if (item === "Notifications") {
+    } else if (item === "Notifications") {
       setComponent("Notifications");
-    }else if (item === "Devices") {
+    } else if (item === "Devices") {
       setComponent("Devices");
-    }else if (item === "Geofences") {
+    } else if (item === "Geofences") {
       setComponent("Geofences");
-    }else if (item === "Drivers") {
+    } else if (item === "Drivers") {
       setComponent("Drivers");
-    }else if (item === "Computed Attributes") {
+    } else if (item === "Computed Attributes") {
       setComponent("ComputedAttributes");
-    }else if (item === "Maintenance") {
+    } else if (item === "Maintenance") {
       setComponent("Maintenance");
-    }else if (item === "Saved Commands") {
+    } else if (item === "Saved Commands") {
       setComponent("SavedCommands");
-    }else if (item === "Userrr") {
+    } else if (item === "Userrr") {
       setComponent("Userrr");
-    }else if (item === "Combined") {
+    } else if (item === "Combined") {
       setComponent("Combined");
-    }else if (item === "Route") {
+    } else if (item === "Route") {
       setComponent("Route");
     }
-   
-   
 
     const tabIndex = tabs.indexOf(item);
     if (tabIndex === -1) {
@@ -350,7 +352,6 @@ function App() {
     setTabs(tabs.filter((item) => item !== tab));
   };
 
-  
   return (
     <>
       <div style={{ marginLeft: state, marginTop: "64px" }}>
@@ -378,15 +379,9 @@ function App() {
           {component === "AssetsCategory" && (
             <AssetsCategory data={mergedData} />
           )}
-          {component === "Leave" && (
-            <Leave data={mergedData} />
-          )}
-          {component === "Status" && (
-            <Status data={mergedData} />
-          )}
-           {component === "StudentDetail" && (
-            <StudentDetail data={mergedData} />
-          )}
+          {component === "Leave" && <Leave data={mergedData} />}
+          {component === "Status" && <Status data={mergedData} />}
+          {component === "StudentDetail" && <StudentDetail data={mergedData} />}
           {component === "DriverAssignmentReport" && (
             <DriverAssignmentReport data={mergedData} />
           )}
@@ -440,20 +435,15 @@ function App() {
           {component === "TopMainMenuMaster" && (
             <TopMainMenuMaster data={mergedData} />
           )}
-            {/* {component === "School" && (
+          {/* {component === "School" && (
             <School data={mergedData} />
           )} */}
           {component === "TopMenuMaster" && <TopMenuMaster data={mergedData} />}
           {component === "UserMenuMaster" && (
             <UserMenuMaster data={mergedData} />
           )}
-          
+
           {component === "UserProfile" && <UserProfile data={mergedData} />}
-         
-        
-
-
-           
 
           {component === "EditAreas" && <EditAreas data={mergedData} />}
           {component === "EditZones" && <EditZones data={mergedData} />}
@@ -465,8 +455,10 @@ function App() {
           {component === "Driver" && <Driver data={mergedData} />}
           {component === "Parent" && <Parent data={mergedData} />}
           {component === "Supervisor" && <Supervisor data={mergedData} />}
-          {component === "SchoolMaster" && <SchoolMaster data={mergedData} />}
-          {component === "ApprovedRequest" && <ApprovedRequest data={mergedData} />}
+          {role === 1 && component === "SchoolMaster" && <SchoolMaster data={mergedData} />}
+          {component === "ApprovedRequest" && (
+            <ApprovedRequest data={mergedData} />
+          )}
           {component === "DeniedRequest" && <DeniedRequest data={mergedData} />}
           {component === "PickupAndDrop" && <PickupAndDrop data={mergedData} />}
           {component === "Server" && <Server data={mergedData} />}
@@ -478,17 +470,18 @@ function App() {
           {component === "Devices" && <Devices data={mergedData} />}
           {component === "Geofences" && <Geofences data={mergedData} />}
           {component === "Drivers" && <Drivers data={mergedData} />}
-          {component === "ComputedAttributes" && <ComputedAttributes data={mergedData} />}
+          {component === "ComputedAttributes" && (
+            <ComputedAttributes data={mergedData} />
+          )}
           {component === "Maintenance" && <Maintenance data={mergedData} />}
           {component === "SavedCommands" && <SavedCommands data={mergedData} />}
           {component === "Userrr" && <Userrr data={mergedData} />}
           {component === "Combined" && <Combined data={mergedData} />}
           {component === "Route" && <Route data={mergedData} />}
-           {/* {component === "ComputedAttributs" && <ComputedAttributes data={mergedData} />} */}
+          {/* {component === "ComputedAttributs" && <ComputedAttributes data={mergedData} />} */}
           {/* {component === "School" && <AssetsType data={mergedData} />} */}
           <BasicSpeedDial />
           {![
-            
             "Dashboard",
             "School",
             "DistanceReport",
@@ -555,16 +548,15 @@ function App() {
             "Devices",
             "Geofences",
             "Drivers",
-           "ComputedAttributes",
-           "Maintenance",
-           "SavedCommands",
-           "Userrr",
-           "Combined",
-           "Route"
+            "ComputedAttributes",
+            "Maintenance",
+            "SavedCommands",
+            "Userrr",
+            "Combined",
+            "Route",
           ].includes(component) && <Tablee data={mergedData} />}
         </div>
       </div>
-      
     </>
   );
 }

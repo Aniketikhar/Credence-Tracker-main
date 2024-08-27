@@ -1,27 +1,38 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Alert,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [role, setRole] = useState('');
+
+  const handleChange = (event) => {
+    setRole(event.target.value);
+  };
 
   const handleLogin = async (event) => {
     // event.preventDefault();
-    
     // try {
     //   const res = await axios.post('http://localhost:5000/api/auth/login', {
     //     email,
     //     password
     //   });
-      
     //   const token = res.data.token;
     //   setMessage('Login successful!');
-      
     //   localStorage.setItem('authToken', token);
-      
     // } catch (error) {
     //   setMessage('Invalid credentials, please try again.');
     // }
@@ -32,16 +43,36 @@ export const Login = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        {message && <Alert severity={message.includes('successful') ? 'success' : 'error'}>{message}</Alert>}
+        {message && (
+          <Alert
+            severity={message.includes("successful") ? "success" : "error"}
+          >
+            {message}
+          </Alert>
+        )}
         <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
+          <div>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={role}
+              label="role"
+              onChange={handleChange}
+            >
+              <MenuItem value={admin}>Super Admin</MenuItem>
+              <MenuItem value={school}>School</MenuItem>
+              <MenuItem value={branch}>Branch</MenuItem>
+            </Select>
+          </div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -85,4 +116,3 @@ export const Login = () => {
     </Container>
   );
 };
-
